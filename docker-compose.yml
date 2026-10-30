@@ -1,0 +1,16 @@
+# Sobe o PostgreSQL unico do projeto (OLTP + DW, em esquemas separados).
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: bd2-postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME:-vendas}
+      POSTGRES_USER: ${DB_USER:-bd2}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-bd2}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/init:/docker-entrypoint-initdb.d:ro
+volumes:
+  pgdata:

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                                 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+  <!-- Unidade de persistencia do sistema transacional (OLTP).
+       Entidades anotadas com @Entity em br.edu.bd2.vendas.model sao detectadas automaticamente.
+       URL, usuario e senha sao sobrescritos por JPAUtil (db.properties / variaveis de ambiente). -->
+  <persistence-unit name="oltpPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+
+    <properties>
+      <property name="javax.persistence.jdbc.driver"   value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.url"      value="jdbc:postgresql://localhost:5432/vendas"/>
+      <property name="javax.persistence.jdbc.user"     value="bd2"/>
+      <property name="javax.persistence.jdbc.password" value="bd2"/>
+
+      <property name="hibernate.dialect"        value="org.hibernate.dialect.PostgreSQL94Dialect"/>
+      <property name="hibernate.default_schema" value="oltp"/>
+
+      <!-- validate | update | create | create-drop | none  (use "update" no desenvolvimento) -->
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+
+      <property name="hibernate.show_sql"   value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <property name="hibernate.jdbc.batch_size" value="50"/>
+      <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
+
+      <!-- Cache de segundo nivel (ative quando for demonstrar no relatorio):
+      <property name="hibernate.cache.use_second_level_cache" value="true"/>
+      <property name="hibernate.cache.region.factory_class"
+                value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/> -->
+    </properties>
+  </persistence-unit>
+</persistence>
