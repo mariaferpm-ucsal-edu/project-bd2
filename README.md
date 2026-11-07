@@ -1,9 +1,6 @@
-# BD II – Sistema de Vendas (OLTP) + Data Warehouse
+# BD II – Sistema de Vendas Farmacêutico (OLTP) + Data Warehouse
 
-Projeto da 2ª Unidade: sistema transacional com **JPA 2.1 / Hibernate 5.2.10.Final** sobre **PostgreSQL**,
-Data Warehouse (estrela e floco de neve), ETL, OLAP e mineração com Python.
-
-> Domínio da equipe: _a definir_ · Integrantes: _Maria Fernanda Maia, Victor Farias Novais, Rafael Rivas Garcia, Bernardo Barbosa Garcia, EMilly Maciel Araujo_
+> Domínio da equipe: _Rede de farmácias_ · Integrantes: _Maria Fernanda Maia, Victor Farias Novais, Rafael Rivas Garcia, Bernardo Barbosa Garcia, EMilly Maciel Araujo_
 
 ## Stack
 | Componente | Versão |
@@ -21,7 +18,7 @@ Data Warehouse (estrela e floco de neve), ETL, OLAP e mineração com Python.
 git clone 
 cp .env.example .env
 docker compose up -d          # PostgreSQL com os esquemas oltp, 
-mvn clean compile             # baixa as dependências
+mvn clean install    # dependendo da complexidade do projeto pode precisar de -DskipTests         
 mvn exec:java              
 mvn test                      # precisa do banco ok
 ```
@@ -44,4 +41,8 @@ Instale o PostgreSQL, crie o banco `vendas` e o usuário `bd2`/`bd2`, e rode
 | `dw` | modelo estrela |
 | `dw_floco` | modelo floco de neve |
 
-
+## Fluxo de contribuições (integrantes)
+1. `git checkout -b feature/<papel>-<assunto>` (ex.: `feature/orm-entidades-venda`)
+2. Commits pequenos e frequentes, **com o seu proprio usuario Git**
+   (`git config user.name "Seu Nome"` e `git config user.email "voce@email.com"`).
+3. Abra um Pull Request para `main`; o Lider revisa e faz o merge.
