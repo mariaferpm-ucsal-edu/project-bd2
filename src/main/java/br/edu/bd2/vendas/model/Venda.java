@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
@@ -27,6 +28,14 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "venda")
+@NamedQuery(name = "Venda.totalPorCliente",
+    query = "select new br.edu.bd2.vendas.consulta.TotalPorCliente(c.nome, c.cpf, count(distinct v), "
+          + "sum(i.quantidade * i.precoUnitario - i.descontoValor)) "
+          + "from Venda v join v.cliente c join v.itens i "
+          + "where v.status = :status "
+          + "group by c.id, c.nome, c.cpf "
+          + "having sum(i.quantidade * i.precoUnitario - i.descontoValor) > :minimo "
+          + "order by sum(i.quantidade * i.precoUnitario - i.descontoValor) desc")
 public class Venda {
 
     @Id

@@ -10,10 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "produto")
+@NamedQuery(name = "Produto.porCategoria",
+    query = "select p from Produto p join p.categoria c join fetch p.laboratorio "
+          + "where lower(c.nome) = lower(:categoria) "
+          + "order by p.nome")
 public class Produto {
 
     @Id
